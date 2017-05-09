@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-"""Program to extract and print unique emails & websites in given file"""
+"""Program to collect unique emails & websites in file from KnowBe4"""
 import sys, os, re
 __author__ = "James R. Aylesworth"
 __copyright__ = "Copyright 2017"
 __license__ = "GPL"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __maintainer__ = "James R. Aylesworth"
 __email__ = "jarhed323@gmail.com"
 __status__ = "Production"
@@ -55,6 +55,19 @@ def getWebsites(searchString, sorted):
 
 	return outputWebsiteLIST
 
+def removeWebsites(siteStrings):
+	questionableAddresses = []
+
+	for site in siteStrings:
+		reMyPersonalSites = re.search(r'\bmypersonalwebsite01.gov\b|\bfamilywebsite.info\b|\bmyfoundationswebsite.org\b', site)
+		reOtherGoodSites = re.search(r'\bpython.org\b|\bgithub.com\b', site)
+		
+		if (not reMyPersonalSites) & (not reOtherGoodSites):
+			questionableAddresses.append(site)
+
+	print('Questionable Addresses: ' + str(len(questionableAddresses)))
+	return questionableAddresses
+
 def printToFile(itemList, pathToWriteTo, filenameToUse):
 	#open a new file, write out websites and close file
 	strOutputPath = os.path.join(pathToWriteTo, filenameToUse)
@@ -101,6 +114,7 @@ def main():
 	
 	#find and write out websites (sorted)
 	websitesFound = getWebsites(strFileData, sortOutput)
+	websitesInQuestion = removeWebsites(websitesFound)
 	if sortOutput:
 		printToFile(websitesFound, strFileDirectory, 'website_output-sorted.txt')
 	else:
