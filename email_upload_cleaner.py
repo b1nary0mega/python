@@ -16,8 +16,6 @@ NOTES:
 1.2.0 - Added method to remove known bad emails from provided list
         All output is now in complete lowercase
         Provided option to order list
-        Created BAT file that will move to appropriate directory and fire off script, outputing
-        all program output to "kb4-email_upload_cleaner-OUTPUT.txt"
 1.1.3 - General cleanup, additional commenting, and better worded output
 1.1.2 - Broke out file open, read and close into its own function
 1.1.1 - Updates to validateFile function to utilize passed variable instead of array referance
