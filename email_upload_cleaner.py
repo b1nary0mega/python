@@ -125,9 +125,9 @@ def main():
     sortOutput = True  # should the data be sorted?
     if sortOutput:
         printToFile(cleanEmailList, strFileDirectory,
-                    'email_clean_OUTPUT--sorted.txt')
+                    'email_upload_cleaner-OUTPUT(sorted).txt')
     else:
         printToFile(cleanEmailList, strFileDirectory,
-                    'email_clean_OUTPUT--unsorted.txt')
+                    'email_upload_cleaner-OUTPUT(unsorted).txt')
 
 main()
