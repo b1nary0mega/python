@@ -36,9 +36,6 @@ def validateFile(fileLocation):
     print('Validating ' + fileLocation)
 
     # verify the path and file names before setting any variables
-    #print('File Path: ' + str(fileLocation))
-    #print('File Directory: ' + os.path.dirname(fileLocation))
-
     if os.path.exists(os.path.dirname(fileLocation)) & os.path.isdir(os.path.dirname(fileLocation)):
         if not os.path.isfile(fileLocation):
             print('*** File does not appear at given path. ***')
@@ -60,8 +57,10 @@ def csvParse(csvFile):
     # required headers for upload file
     csvRequiredHeaders = ['Email', 'First Name', 'Last Name', 'Phone Number', 'Extension', 'Group', 'Location',
                           'Division', 'Manager Name', 'Manager Email', 'Employee Number', 'Job Title', 'Password', 'Mobile', 'AD Managed']
+    # required headers as called by lotus
     lotusHeaders = ['Internet Address', 'First Name', 'Last Name', 'Business Phone', 'Extension', 'Full Name', 'Company',
                     'Department', 'Manager', 'Manager Email', 'Employee Number', 'Job Title', 'Password', 'Mobile Phone', 'AD Managed']
+    # actual listing of lotus export headers
     lotusHeadersFull = ['Title', 'First Name', 'Middle Name', 'Last Name', 'Full Name', 'Short Name', 'Phonetic Name', 'Suffix', 'Company', 'Department',
                         'Messaging ID', 'Job Title', 'Business Street', 'Business City', 'Business State', 'Business Postal Code',
                         'Business Country/Region', 'Home Street', 'Home City', 'Home State', 'Home Postal Code', 'Home Country/Region',
@@ -93,17 +92,18 @@ def csvParse(csvFile):
     for csvItem in csvReaderObject:
         rowToAdd = []
 
-        # skip first row (incorrect header)
-        if csvReaderObject.line_num == 1:
+        if csvReaderObject.line_num == 1:  # skip first row; it's an incorrect header
             continue
 
         for rowLoc in headerIndices:
+            skipRow = False
             if(rowLoc == ''):
                 rowToAdd.append('')
             else:
                 # check if this is OU listing
                 reOUMatch = re.findall(r'OU([+=]\w+)', csvItem[rowLoc])
                 if(reOUMatch):
+                    # pull out and append only the *actual* OU name
                     rowToAdd.append(reOUMatch[0].split("=")[1])
                     continue
                 else:
@@ -111,13 +111,14 @@ def csvParse(csvFile):
                         if(isGoodEmail(csvItem[rowLoc].lower(), readInFile(sys.argv[2]))):
                             rowToAdd.append(csvItem[rowLoc].lower())
                         else:
-                            #print('email excluded')
+                            skipRow = True  # email is invalid; skip it
                             break
                     elif(rowLoc > 0):
                         rowToAdd.append(csvItem[rowLoc])
                     else:
                         continue
-        dataToOutput.append(rowToAdd)
+        if(not skipRow):
+            dataToOutput.append(rowToAdd)
 
     csvFileObject.close()
 
@@ -139,14 +140,13 @@ def writeCSV(fileToWriteOut, locationToWriteTo, fileNameToUse):
 
 
 def readInFile(strFileAndLocation):
-    #print('\nReading in ' + strFileAndLocation)
-
     # open, read, store data, and close
     fileObject = open(strFileAndLocation)
     strFileData = fileObject.readlines()
     fileObject.close()
-    #print('*COMPLETE*')
+
     return strFileData
+
 
 def isEmailAddress(stringToTest):
     reEmailMatches = re.findall(r'[\w\.-]+@[\w\.-]+', str(stringToTest))
@@ -154,6 +154,7 @@ def isEmailAddress(stringToTest):
         return True
     else:
         return False
+
 
 def isGoodEmail(email, badEmailList):
     result = ''
@@ -164,8 +165,9 @@ def isGoodEmail(email, badEmailList):
             break
         else:
             result = True
-            #print("Good Email returning - " + str(result))
+
     return result
+
 
 def getEmails(searchString, sorted):
     print('\nSearching for emails...')
@@ -233,7 +235,7 @@ def main():
                 strFileDirectory2, strFileBaseName2)
 
         else:
-            exit()  # already gave reason in above method
+            exit()  # args were invalid; exit program!
     else:
         print(
             'Usage: python.exe email_upload_cleaner.py [FILE_LOCATION\EMAIL_LIST] [FILE_LOCATION\REMOVE_LIST]')
@@ -244,16 +246,7 @@ def main():
     tempFileAndLocation = (os.path.join(strFileDirectory, '_temp_output.csv'))
     writeCSV(cleanedData, strFileDirectory, 'KnowBe4_Email_Upload.csv')
 
-    # read files into lists
-    #strFileData = readInFile(tempFileAndLocation)
-    #strFileData2 = getEmails(readInFile(strFileAndLocation2), False)
-
-    # create good email list
-    #cleanEmailList = removeEmails(strFileData, strFileData2)
-
-    #printToFile(cleanEmailList, strFileDirectory,
-    #            'KnowBe4_Email_Upload.csv')
-
     print('------------------------------------------------------------')
+
 
 main()
