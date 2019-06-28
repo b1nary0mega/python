@@ -1,5 +1,17 @@
 import pyautogui
 import time
+__author__ = "James R. Aylesworth"
+__copyright__ = "Copyright 2018"
+__license__ = "GPL"
+__version__ = "1.0.0"
+__maintainer__ = "James R. Aylesworth"
+__website__ = "https://b1nary0mega.github.io/"
+__status__ = "PRODUCTION"
+
+'''
+NOTES:
+1.0.0 - Initial creation; playing around with pyautogui
+'''
 
 #Global variables
 drawSpeed = .5

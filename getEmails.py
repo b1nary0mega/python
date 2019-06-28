@@ -2,11 +2,11 @@
 """ Program to collect unique emails in given file then output to same directory """
 import sys, os, re
 __author__ = "James R. Aylesworth"
-__copyright__ = "Copyright 2017"
+__copyright__ = "Copyright 2018"
 __license__ = "GPL"
 __version__ = "1.0.0"
 __maintainer__ = "James R. Aylesworth"
-__email__ = "jarhed323@gmail.com"
+__website__ = "https://b1nary0mega.github.io/"
 __status__ = "Production"
 
 #validate system args

@@ -11,8 +11,8 @@ __copyright__ = "Copyright 2017"
 __license__ = "GPL"
 __version__ = "1.3.0"
 __maintainer__ = "James R. Aylesworth"
-__email__ = "jamesaylesworth@monroecounty.gov"
-__status__ = "PRODUCTION"
+__website__ = "https://b1nary0mega.github.io/"
+__status__ = "Production"
 
 '''
 NOTES:
@@ -244,7 +244,7 @@ def main():
     # clean up the input file (match formatting and seperate out OU)
     cleanedData = csvParse(sys.argv[1])
     tempFileAndLocation = (os.path.join(strFileDirectory, '_temp_output.csv'))
-    writeCSV(cleanedData, strFileDirectory, 'KnowBe4_Email_Upload.csv')
+    writeCSV(cleanedData, strFileDirectory, 'Clean_Email_Upload.csv')
 
     print('------------------------------------------------------------')
 
