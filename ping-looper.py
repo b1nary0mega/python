@@ -9,13 +9,13 @@ num_cores = range(5)
 p = Pool()
 
 # BASH REF
-# "for ip in $(seq 1 10); do ping -c 1 10.11.1.$ip | grep \"bytes from\" | cut -d\" \" -f4 | cut -d\":\" -f1 & done"
+# "for ip in $(seq 1 10); do ping -c 1 192.168.0.$ip | grep \"bytes from\" | cut -d\" \" -f4 | cut -d\":\" -f1 & done"
 #
 
 pingCMDs = []
 
 for i in range(25):
-  IP = "10.11.1." + str(i)
+  IP = "192.168.0." + str(i)
   pingCMDs.append("ping -c1 " + IP + " | grep \"bytes from\" | cut -d\" \" -f4 | cut -d\":\" -f1 &")
   pingCMD = ("ping -c1 " + IP + " | grep \"bytes from\" | cut -d\" \" -f4 | cut -d\":\" -f1 &")
   EX = p.map(pingCMD, num_cores)

