@@ -9,7 +9,7 @@ __author__ = "Microsoft"
 __copyright__ = "Copyright 2022"
 __license__ = "N/A"
 __version__ = "1.0.0"
-__maintainer__ = "James 'Jimmi' Aylesworth"
+__maintainer__ = "James R. Aylesworth"
 __website__ = "https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/run-advanced-query-sample-python"
 __status__ = "Development"
 
