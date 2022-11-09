@@ -63,8 +63,10 @@ if __name__ == "__main__":
             else:
                 main(logger, menu_options[int(user_choice)])
                 continue
-        except:
+        except Exception as e:
+            logger.debug("Menu option %s previously selected" % user_choice)
             logger.debug("Exception caught")
+            logger.debug(e)
             break
 
     logger.info("=== program exiting ===")
