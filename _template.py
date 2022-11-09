@@ -5,11 +5,11 @@ FILE:   template.py
 DATE:   DD-MON-YY
 DESC:   Keep is short and sweet; don't write a manual!
 """
-__author__ = "James R. Aylesworth"
+__author__ = "Jimmi Aylesworth"
 __copyright__ = "Copyright 2022"
 __license__ = "GPL"
 __version__ = "1.0.0"
-__maintainer__ = "James R. Aylesworth"
+__maintainer__ = "Jimmi Aylesworth"
 __website__ = "https://b1nary0mega.github.io/"
 __status__ = "Development"
 
@@ -23,6 +23,8 @@ def main(logger, menu_option):
 
     if menu_option == "clear":
         os.system("cls")
+    elif menu_option == "weather":
+        raise Exception("\"weather\" function not yet implemented.")
     elif menu_option == "exit":
         os._exit(0)
     return
@@ -45,7 +47,7 @@ if __name__ == "__main__":
     menu = "\nWelcome.."
 
     # Menu Options
-    menu_options = ("clear", "exit")
+    menu_options = ("clear", "weather", "exit")
 
     # Menu Loop
     while True:
@@ -64,7 +66,6 @@ if __name__ == "__main__":
                 main(logger, menu_options[int(user_choice)])
                 continue
         except Exception as e:
-            logger.debug("Menu option %s previously selected" % user_choice)
             logger.debug("Exception caught")
             logger.debug(e)
             break
